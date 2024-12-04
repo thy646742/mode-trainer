@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { createTheme, MantineProvider, AppShell, Title, Container, Text } from '@mantine/core';
+import { createTheme, MantineProvider, AppShell, Title, Container, Text, Stack } from '@mantine/core';
 import Score from './components/Score';
+import Keyboard from './components/Keyboard';
 import '@mantine/core/styles.css';
 
 const globalTheme = createTheme({
-    primaryColor: 'cyan'
+    primaryColor: 'violet'
 });
 
 function App() {
@@ -13,7 +14,7 @@ function App() {
 
     const addNote = (note: Note) => {
         setNotes(notes.concat(note));
-    }
+    };
 
     return (
         <MantineProvider theme={globalTheme}>
@@ -22,9 +23,12 @@ function App() {
                     <Title order={1}>Mode Trainer</Title>
                 </AppShell.Header>
                 <AppShell.Main>
-                    <Score notes={notes} keySignature={keySignature}/>
-                    <button onClick={()=>{addNote({pitch: 'G', accidental: '#'});}}>Add G</button>
-                    <button onClick={()=>{setKeySignature('B');}}>Change to B key</button>
+                    <Stack align="center" justify="flex-start">
+                        <Score notes={notes} keySignature={keySignature}/>
+                        <button onClick={()=>{addNote({pitch: 'G', accidental: '#'});}}>Add G</button>
+                        <button onClick={()=>{setKeySignature('B');}}>Change to B key</button>
+                        <Keyboard/>
+                    </Stack>
                 </AppShell.Main>
                 <AppShell.Footer>
                     <Container>
