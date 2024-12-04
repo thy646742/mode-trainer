@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Formatter, Renderer, Stave, StaveNote, Voice } from 'vexflow';
+import { Accidental, Formatter, Renderer, Stave, StaveNote, Voice } from 'vexflow';
 
 type ScoreProps = {
     notes: Note[],
@@ -26,8 +26,15 @@ function Score({ notes, keySignature }: ScoreProps) {
             return;
         }
         const staveNotes: StaveNote[] = notes.map(
-            value => new StaveNote({ keys:[value.pitch + value.accidental + '/4'], duration: 'w' })
+            note => {
+                const result = new StaveNote({ keys:[note.pitch + note.accidental + '/4'], duration: 'w' });
+                if(note.accidental){
+                    result.addModifier(new Accidental(note.accidental));
+                }
+                return result;
+            }
         );
+        console.log(staveNotes);
         const voice = new Voice({ num_beats: 4 * notes.length, beat_value: 4});
         voice.addTickables(staveNotes);
         new Formatter().joinVoices([voice]).format([voice], 250);
@@ -41,7 +48,7 @@ function Score({ notes, keySignature }: ScoreProps) {
         console.log('init');
         const renderer = new Renderer(scoreContainerRef.current as HTMLDivElement, Renderer.Backends.SVG);
         rendererRef.current = renderer;
-        renderer.resize(500, 300);
+        renderer.resize(500, 200);
         renderScore();
 
     }, []);

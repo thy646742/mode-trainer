@@ -10,10 +10,11 @@ const globalTheme = createTheme({
 
 function App() {
     const [ notes, setNotes ] = useState<Note[]>([]);
-    const [ keySignature, setKeySignature ] = useState<string>('C');
+    const [ keySignature, setKeySignature ] = useState<Pitch>('C');
 
     const addNote = (note: Note) => {
         setNotes(notes.concat(note));
+        console.log('Adding Note', note);
     };
 
     return (
@@ -23,11 +24,9 @@ function App() {
                     <Title order={1}>Mode Trainer</Title>
                 </AppShell.Header>
                 <AppShell.Main>
-                    <Stack align="center" justify="flex-start">
+                    <Stack align="center" justify="flex-start" h="100%">
                         <Score notes={notes} keySignature={keySignature}/>
-                        <button onClick={()=>{addNote({pitch: 'G', accidental: '#'});}}>Add G</button>
-                        <button onClick={()=>{setKeySignature('B');}}>Change to B key</button>
-                        <Keyboard/>
+                        <Keyboard addNote={addNote}/>
                     </Stack>
                 </AppShell.Main>
                 <AppShell.Footer>
