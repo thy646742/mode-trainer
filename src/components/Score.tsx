@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Accidental, Formatter, Renderer, Stave, StaveNote, Voice } from 'vexflow';
+import { Accidental, Formatter, Renderer, Stave, StaveNote, SVGContext, Voice } from 'vexflow';
 
 type ScoreProps = {
     notes: Note[],
@@ -15,11 +15,12 @@ function Score({ notes, keySignature }: ScoreProps) {
             return;
         }
         const context = rendererRef.current.getContext();
-        const stave = new Stave(10, 40, 400);
+        const stave = new Stave(60, 30, 460);
         stave.addClef('treble');
         stave.addKeySignature(keySignature);
         stave.setContext(context);
         context.clear();
+        (context as SVGContext).setViewBox(40, 15, 500, 150);
         stave.draw();
 
         if(notes.length === 0){
@@ -48,9 +49,8 @@ function Score({ notes, keySignature }: ScoreProps) {
         console.log('init');
         const renderer = new Renderer(scoreContainerRef.current as HTMLDivElement, Renderer.Backends.SVG);
         rendererRef.current = renderer;
-        renderer.resize(500, 200);
+        renderer.resize(600, 180);
         renderScore();
-
     }, []);
 
     useEffect(() => {
@@ -64,7 +64,7 @@ function Score({ notes, keySignature }: ScoreProps) {
     }, [notes]);
 
     return(
-        <div ref={scoreContainerRef}/>
+        <div ref={scoreContainerRef} style={{borderStyle: 'solid', borderRadius: 1}}/>
     );
 }
 
