@@ -65,7 +65,7 @@ function Score({ notes, keySignature }: ScoreProps) {
         console.log(staveNotes);
         const voice = new Voice({ num_beats: 4 * notes.length, beat_value: 4});
         voice.addTickables(staveNotes);
-        new Formatter().joinVoices([voice]).format([voice], 250);
+        Formatter.SimpleFormat(voice.getTickables(), 0, { paddingBetween: 20 });
         voice.draw(context, stave);
     };
 
