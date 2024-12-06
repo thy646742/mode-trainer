@@ -10,7 +10,6 @@ const globalTheme = createTheme({
 
 function App() {
     const [ notes, setNotes ] = useState<Note[]>([]);
-    const [ keySignature, setKeySignature ] = useState<Pitch>('C');
 
     const addNote = (note: Note) => {
         setNotes(notes.concat(note));
@@ -25,7 +24,7 @@ function App() {
                 </AppShell.Header>
                 <AppShell.Main>
                     <Stack align="center" justify="flex-start" h="100%">
-                        <Score notes={notes} keySignature={keySignature}/>
+                        <Score notes={notes}/>
                         <Keyboard addNote={addNote}/>
                     </Stack>
                 </AppShell.Main>

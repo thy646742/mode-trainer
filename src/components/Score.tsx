@@ -2,11 +2,10 @@ import { useEffect, useRef } from 'react';
 import { Accidental, Formatter, Renderer, Stave, StaveNote, SVGContext, Voice } from 'vexflow';
 
 type ScoreProps = {
-    notes: Note[],
-    keySignature: string
+    notes: Note[]
 };
 
-function Score({ notes, keySignature }: ScoreProps) {
+function Score({ notes }: ScoreProps) {
     const scoreContainerRef = useRef<HTMLDivElement | null>(null);
     const rendererRef = useRef<Renderer | null>(null);
 
@@ -52,7 +51,6 @@ function Score({ notes, keySignature }: ScoreProps) {
         const context = rendererRef.current.getContext();
         const stave = new Stave(10, 10, 460);
         stave.addClef('treble');
-        stave.addKeySignature(keySignature);
         stave.setContext(context);
         context.clear();
         (context as SVGContext).setViewBox(0, 0, 480, 120);
@@ -79,11 +77,6 @@ function Score({ notes, keySignature }: ScoreProps) {
         renderer.resize(600, 150);
         renderScore();
     }, []);
-
-    useEffect(() => {
-        console.log('keychange');
-        renderScore();
-    }, [keySignature]);
     
     useEffect(() => {
         console.log('notechange');
