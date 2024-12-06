@@ -15,12 +15,12 @@ function Score({ notes, keySignature }: ScoreProps) {
             return;
         }
         const context = rendererRef.current.getContext();
-        const stave = new Stave(60, 30, 460);
+        const stave = new Stave(10, 10, 460);
         stave.addClef('treble');
         stave.addKeySignature(keySignature);
         stave.setContext(context);
         context.clear();
-        (context as SVGContext).setViewBox(40, 15, 500, 150);
+        (context as SVGContext).setViewBox(0, 0, 480, 120);
         stave.draw();
 
         if(notes.length === 0){
@@ -49,7 +49,7 @@ function Score({ notes, keySignature }: ScoreProps) {
         console.log('init');
         const renderer = new Renderer(scoreContainerRef.current as HTMLDivElement, Renderer.Backends.SVG);
         rendererRef.current = renderer;
-        renderer.resize(600, 180);
+        renderer.resize(600, 150);
         renderScore();
     }, []);
 
