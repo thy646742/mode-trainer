@@ -10,6 +10,41 @@ function Score({ notes, keySignature }: ScoreProps) {
     const scoreContainerRef = useRef<HTMLDivElement | null>(null);
     const rendererRef = useRef<Renderer | null>(null);
 
+    const createStaveNotes = (): StaveNote[] => {
+        const staveNotes: StaveNote[] = [];
+        let currentOctave = 0;
+        for(let i = 0; i < notes.length; i++){
+            // Consider Initial and Connecting Octaves
+            if(notes[i].octave){
+                currentOctave = notes[i].octave as number;
+            }
+            else if(i == 0){
+                currentOctave = notes[i].pitch == 'A' || notes[i].pitch == 'B' ? 3 : 4;
+            }
+            else if(notes[i].pitch == 'C' && notes[i - 1].pitch == 'B'){
+                currentOctave++;
+            }
+            else if(notes[i].pitch == 'B' && notes[i - 1].pitch == 'C'){
+                currentOctave--;
+            }
+            
+            //Consider Lower and Upper Bound
+            if(currentOctave <= 3 && !(['G', 'A', 'B'].includes(notes[i].pitch))){
+                currentOctave = 4;
+            }
+            if(currentOctave >= 6 && (['A', 'B'].includes(notes[i].pitch))){
+                currentOctave = 5;
+            }
+            
+            const result = new StaveNote({keys: [notes[i].pitch + notes[i].accidental + '/' + currentOctave], duration: 'w'});
+            if(notes[i].accidental){
+                result.addModifier(new Accidental(notes[i].accidental));
+            }
+            staveNotes.push(result);
+        }
+        return staveNotes;
+    };
+
     const renderScore = () => {
         if(!rendererRef.current){
             return;
@@ -26,15 +61,7 @@ function Score({ notes, keySignature }: ScoreProps) {
         if(notes.length === 0){
             return;
         }
-        const staveNotes: StaveNote[] = notes.map(
-            note => {
-                const result = new StaveNote({ keys:[note.pitch + note.accidental + '/4'], duration: 'w' });
-                if(note.accidental){
-                    result.addModifier(new Accidental(note.accidental));
-                }
-                return result;
-            }
-        );
+        const staveNotes: StaveNote[] = createStaveNotes();
         console.log(staveNotes);
         const voice = new Voice({ num_beats: 4 * notes.length, beat_value: 4});
         voice.addTickables(staveNotes);

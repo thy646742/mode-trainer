@@ -18,7 +18,7 @@ function Keyboard({ addNote }: KeybaordProps) {
                         <Button
                             classNames={{ root: classes.keyboard_button_root }}
                             variant="outline"
-                            onClick={ () => addNote({ pitch: pitches[j], accidental: accidentals[i] })}
+                            onClick={ () => addNote({ pitch: pitches[j], accidental: accidentals[i], octave: null })}
                         >
                             {pitches[j] + accidentals[i]}
                         </Button>

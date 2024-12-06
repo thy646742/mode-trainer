@@ -7,4 +7,5 @@ type Accidental = '##' | '#' | '' | 'b' | 'bb';
 type Note = {
     pitch: Pitch
     accidental: Accidental
+    octave: number | null
 };
