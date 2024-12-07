@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { createTheme, MantineProvider, AppShell, Title, Container, Text, Stack } from '@mantine/core';
 import Score from './components/Score';
 import Keyboard from './components/Keyboard';
+import QuestionDisplay from './components/QuestionDisplay';
 import '@mantine/core/styles.css';
 
 const globalTheme = createTheme({
@@ -24,6 +25,7 @@ function App() {
                 </AppShell.Header>
                 <AppShell.Main>
                     <Stack align="center" justify="flex-start" h="100%">
+                        <QuestionDisplay keySignature={'+1'} scaleId={4}/>
                         <Score notes={notes}/>
                         <Keyboard addNote={addNote}/>
                     </Stack>
