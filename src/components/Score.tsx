@@ -2,10 +2,11 @@ import { useEffect, useRef } from 'react';
 import { Accidental, Formatter, Renderer, Stave, StaveNote, SVGContext, Voice } from 'vexflow';
 
 type ScoreProps = {
-    notes: Note[]
+    notes: Note[],
+    correct: boolean
 };
 
-function Score({ notes }: ScoreProps) {
+function Score({ notes, correct }: ScoreProps) {
     const scoreContainerRef = useRef<HTMLDivElement | null>(null);
     const rendererRef = useRef<Renderer | null>(null);
 
@@ -35,9 +36,20 @@ function Score({ notes }: ScoreProps) {
                 currentOctave = 5;
             }
             
+            //Add Accidental
             const result = new StaveNote({keys: [notes[i].pitch + notes[i].accidental + '/' + currentOctave], duration: 'w'});
             if(notes[i].accidental){
                 result.addModifier(new Accidental(notes[i].accidental));
+            }
+
+            //Add Color
+            if(i == notes.length - 1){
+                result.setStyle({
+                    fillStyle: correct ? 'green' : 'red',
+                    strokeStyle: correct ? 'green' : 'red',
+                    shadowColor: correct ? 'green' : 'red',
+                    shadowBlur: 3
+                });
             }
             staveNotes.push(result);
         }
@@ -60,7 +72,6 @@ function Score({ notes }: ScoreProps) {
             return;
         }
         const staveNotes: StaveNote[] = createStaveNotes();
-        console.log(staveNotes);
         const voice = new Voice({ num_beats: 4 * notes.length, beat_value: 4});
         voice.addTickables(staveNotes);
         Formatter.SimpleFormat(voice.getTickables(), 0, { paddingBetween: 20 });
@@ -71,7 +82,6 @@ function Score({ notes }: ScoreProps) {
         if(rendererRef.current){
             return;
         }
-        console.log('init');
         const renderer = new Renderer(scoreContainerRef.current as HTMLDivElement, Renderer.Backends.SVG);
         rendererRef.current = renderer;
         renderer.resize(600, 150);
@@ -79,12 +89,11 @@ function Score({ notes }: ScoreProps) {
     }, []);
     
     useEffect(() => {
-        console.log('notechange');
         renderScore();
     }, [notes]);
 
     return(
-        <div ref={scoreContainerRef} style={{borderStyle: 'solid', borderRadius: 1}}/>
+        <div ref={scoreContainerRef} />
     );
 }
 
