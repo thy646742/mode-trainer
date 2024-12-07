@@ -1,38 +1,55 @@
-import { ReactNode } from 'react';
-import { Grid, Button } from '@mantine/core';
-import classes from './Keyboard.module.css';
+import { Button } from '@mantine/core';
+import { useState } from 'react';
 
 type KeybaordProps = {
     addNote: (note: Note) => void
 };
 
 function Keyboard({ addNote }: KeybaordProps) {
-    const getButtons = () => {
-        const buttons: ReactNode[] = [];
-        const accidentals: Accidental[] = ['##', '#', '', 'b', 'bb'];
-        const pitches: Pitch[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
-        for (let i = 0; i < 5; i++) {
-            for (let j = 0; j < 7; j++) {
-                buttons.push(
-                    <Grid.Col span={1} h="50px" key={j * 10 + i}>
-                        <Button
-                            classNames={{ root: classes.keyboard_button_root }}
-                            variant="outline"
-                            onClick={ () => addNote({ pitch: pitches[j], accidental: accidentals[i], octave: null })}
-                        >
-                            {pitches[j] + accidentals[i]}
-                        </Button>
-                    </Grid.Col>
-                );
-            }
-        }
-        return buttons;
-    };
-
+    const [ pitch, setPitch ] = useState<string>('');
     return (
-        <Grid align="horizontal" columns={7} gutter={0} w="60%">
-            {getButtons()}
-        </Grid>
+        <>
+            <Button.Group>
+                {
+                    ['A', 'B', 'C', 'D', 'E', 'F', 'G'].map(value => 
+                        <Button
+                            variant={value == pitch ? 'filled' : 'outline'}
+                            size='lg'
+                            onClick={() => setPitch(value)}
+                        >
+                            {value}
+                        </Button>
+                    )
+                }
+            </Button.Group>
+            <Button.Group>
+                {
+                    [
+                        {internal: 'bb', display: '𝄫'},
+                        {internal: 'b', display: '♭'},
+                        {internal: '', display: '♮'},
+                        {internal: 'b', display: '♯'},
+                        {internal: 'b', display: '𝄪'},
+                    ].map(value => 
+                        <Button
+                            variant='outline'
+                            size='lg'
+                            disabled={pitch == '' ? true : false}
+                            onClick={() => {
+                                addNote({
+                                    pitch: pitch as Pitch,
+                                    accidental: value.internal as Accidental,
+                                    octave: null
+                                });
+                                setPitch('');
+                            }}
+                        >
+                            {value.display}
+                        </Button>
+                    )
+                }
+            </Button.Group>
+        </>
     );
 };
 
