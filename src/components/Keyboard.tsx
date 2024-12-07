@@ -13,6 +13,7 @@ function Keyboard({ addNote }: KeybaordProps) {
                 {
                     ['A', 'B', 'C', 'D', 'E', 'F', 'G'].map(value => 
                         <Button
+                            key={value}
                             variant={value == pitch ? 'filled' : 'outline'}
                             size='lg'
                             onClick={() => setPitch(value)}
@@ -28,10 +29,11 @@ function Keyboard({ addNote }: KeybaordProps) {
                         {internal: 'bb', display: '𝄫'},
                         {internal: 'b', display: '♭'},
                         {internal: '', display: '♮'},
-                        {internal: 'b', display: '♯'},
-                        {internal: 'b', display: '𝄪'},
+                        {internal: '#', display: '♯'},
+                        {internal: '##', display: '𝄪'},
                     ].map(value => 
                         <Button
+                            key={value.internal}
                             variant='outline'
                             size='lg'
                             disabled={pitch == '' ? true : false}
