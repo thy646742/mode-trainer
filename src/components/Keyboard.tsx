@@ -1,5 +1,6 @@
 import { Button } from '@mantine/core';
 import { useState } from 'react';
+import classes from './Keyboard.module.css';
 
 type KeybaordProps = {
     addNote: (note: Note) => void
@@ -36,6 +37,7 @@ function Keyboard({ addNote }: KeybaordProps) {
                             key={value.internal}
                             variant='outline'
                             size='lg'
+                            classNames = {{ inner: classes.accidental }}
                             disabled={pitch == '' ? true : false}
                             onClick={() => {
                                 addNote({

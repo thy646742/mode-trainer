@@ -1,5 +1,8 @@
-.keyboard_button_root {
-    height: 100% !important;
-    width: 100% !important;
-    --button-radius: 0;
+.accidental {
+    font-family: "Noto Music", sans-serif;
+    font-size: 2rem;
+    font-weight: 400;
+    font-style: normal;
+    position: relative;
+    top: -8px !important;
 }
