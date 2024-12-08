@@ -16,9 +16,16 @@ const keyToNote = {
     '-7': { pitch: 'C', accidental: 'b' },
 };
 const scaleNames: Scale[] = ['Ionian', 'Dorian', 'Phrygian', 'Lydian', 'Mixolydian', 'Aeolian', 'Locrian'];
+const accidentals = {
+    '': '',
+    'b': '♭',
+    '#': '♯'
+};
 
-function getScaleName(keySignature: Key, scaleId: number): string {
-    return keyToNote[keySignature].pitch + keyToNote[keySignature].accidental + ' ' +  scaleNames[scaleId];
+function getScaleName(keySignature: Key, scaleId: number): [string, string, string] {
+    return [keyToNote[keySignature].pitch,
+        accidentals[keyToNote[keySignature].accidental as '' | 'b' | '#'],
+        scaleNames[scaleId]];
 }
 
 export { getScaleName };
