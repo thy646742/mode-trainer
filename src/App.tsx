@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { createTheme, MantineProvider, AppShell, Title, Container, Text, Stack, Button } from '@mantine/core';
+import { createTheme, MantineProvider, AppShell, Title, Container, Text, Stack, Button, Group } from '@mantine/core';
 import Score from './components/Score';
 import Keyboard from './components/Keyboard';
 import QuestionDisplay from './components/QuestionDisplay';
@@ -15,6 +15,7 @@ function App() {
     const [ keySignature, setKeySignature ] = useState<Key>('0');
     const [ scaleId, setScaleId ] = useState<number>(0);
     const [ correct, setCorrect ] = useState<boolean>(true);
+    const [ complete, setComplete ] = useState<boolean>(false);
 
     const scaleNotes = useMemo(() => getScaleNotes(keySignature, scaleId), [keySignature, scaleId]);
 
@@ -36,13 +37,22 @@ function App() {
             }
             return newNotes;
         });
-        setCorrect(note.pitch == scaleNotes[noteIndex].pitch && note.accidental == scaleNotes[noteIndex]. accidental);
+        const check = note.pitch == scaleNotes[noteIndex].pitch && note.accidental == scaleNotes[noteIndex]. accidental;
+        setCorrect(check);
+        setComplete(check && noteIndex == 6);
+    };
+
+    const skip = () => {
+        setNotes([...scaleNotes]);
+        setCorrect(true);
+        setComplete(true);
     };
 
     const newQuestion = () => {
         const keySignatures: Key[] = ['0', '+1', '+2', '+3', '+4', '+5', '+6', '+7', '-1', '-2', '-3', '-4', '-5', '-6', '-7'];
         setNotes([]);
         setCorrect(true);
+        setComplete(false);
         setKeySignature(keySignatures[Math.floor(Math.random() * 15)]);
         setScaleId(Math.floor(Math.random() * 7));
     };
@@ -57,8 +67,11 @@ function App() {
                     <Stack align="center" justify="flex-start" h="100%">
                         <QuestionDisplay keySignature={keySignature} scaleId={scaleId}/>
                         <Score notes={notes} correct={correct}/>
-                        <Keyboard addNote={addNote}/>
-                        <Button onClick={newQuestion}>New Question</Button>
+                        <Keyboard addNote={addNote} disabled={complete}/>
+                        <Group>
+                            <Button onClick={skip} disabled={complete} variant='light'>Show Answer</Button>
+                            <Button onClick={newQuestion} disabled={!complete}>New Question</Button>
+                        </Group>
                     </Stack>
                 </AppShell.Main>
                 <AppShell.Footer>

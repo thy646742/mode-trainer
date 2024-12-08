@@ -4,9 +4,10 @@ import classes from './Keyboard.module.css';
 
 type KeybaordProps = {
     addNote: (note: Note) => void
+    disabled: boolean
 };
 
-function Keyboard({ addNote }: KeybaordProps) {
+function Keyboard({ addNote, disabled }: KeybaordProps) {
     const [ pitch, setPitch ] = useState<string>('');
     return (
         <>
@@ -17,6 +18,7 @@ function Keyboard({ addNote }: KeybaordProps) {
                             key={value}
                             variant={value == pitch ? 'filled' : 'outline'}
                             size='lg'
+                            disabled={disabled}
                             onClick={() => setPitch(value)}
                         >
                             {value}
