@@ -42,6 +42,7 @@ function App() {
     const newQuestion = () => {
         const keySignatures: Key[] = ['0', '+1', '+2', '+3', '+4', '+5', '+6', '+7', '-1', '-2', '-3', '-4', '-5', '-6', '-7'];
         setNotes([]);
+        setCorrect(true);
         setKeySignature(keySignatures[Math.floor(Math.random() * 15)]);
         setScaleId(Math.floor(Math.random() * 7));
     };
