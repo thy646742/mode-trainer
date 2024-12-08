@@ -21,4 +21,4 @@ function getScaleName(keySignature: Key, scaleId: number): string {
     return keyToNote[keySignature].pitch + keyToNote[keySignature].accidental + ' ' +  scaleNames[scaleId];
 }
 
-export { getScaleName }
+export { getScaleName };
