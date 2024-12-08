@@ -1,4 +1,4 @@
-import { Text } from '@mantine/core';
+import { Text, Container } from '@mantine/core';
 import { getScaleName } from '../utils/getScaleName';
 import classes from './QuestionDisplay.module.css';
 
@@ -10,12 +10,14 @@ type QuestionDisplayProps = {
 function QuestionDisplay({ keySignature, scaleId }: QuestionDisplayProps) {
     const [ dispKey, dispAccidental, dispScale ] = getScaleName(keySignature, scaleId);
     return(
-        <Text span size={'xl'}>
-            {dispKey}
-            <Text span className={classes.accidental}>{dispAccidental}</Text>
-            &nbsp;
-            {dispScale}
-        </Text>
+        <Container className={classes.questionWrapper}>
+            <Text span className={classes.question}>
+                {dispKey}
+                <Text span className={classes.accidental}>{dispAccidental}</Text>
+                &nbsp;
+                {dispScale}
+            </Text>
+        </Container>
     );
 }
 

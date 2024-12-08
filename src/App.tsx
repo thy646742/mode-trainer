@@ -1,15 +1,17 @@
-import { useState, useMemo } from 'react';
-import { useDisclosure } from '@mantine/hooks';
-import { createTheme, MantineProvider, AppShell, Title, Container, Text, Stack, Button, Group, Drawer } from '@mantine/core';
+import { useState, useMemo, useEffect } from 'react';
+import { useDisclosure, useElementSize, useViewportSize } from '@mantine/hooks';
+import { createTheme, MantineProvider, AppShell, Text, Stack, Button, Group, Drawer } from '@mantine/core';
 import Score from './components/Score';
 import Keyboard from './components/Keyboard';
 import QuestionDisplay from './components/QuestionDisplay';
 import Configuration from './components/Configuration';
 import { getScaleNotes } from './utils/getScaleNotes';
 import '@mantine/core/styles.css';
+import classes from '/src/App.module.css';
 
 const globalTheme = createTheme({
-    primaryColor: 'violet'
+    primaryColor: 'violet',
+    autoContrast: true
 });
 
 const defaultConfig: Config = {
@@ -26,8 +28,16 @@ function App() {
     const [ configOpen , setConfigOpen ] = useDisclosure(false);
     const [ config, setConfig ] = useState<Config>(defaultConfig);
     const [ currentConfig, setCurrentConfig ] = useState<Config>(defaultConfig);
-    
+    const [ stickFooter, setStickFooter ] = useState<boolean>(true);
+
     const scaleNotes = useMemo(() => getScaleNotes(keySignature, scaleId), [keySignature, scaleId]);
+
+    const mainSize = useElementSize();
+    const viewportSize = useViewportSize();
+
+    useEffect(() => {
+        setStickFooter(mainSize.height + 150 <= viewportSize.height);
+    }, [mainSize, viewportSize]);
 
     const addNote = (note: Note) => {
         let noteIndex = notes.length;
@@ -79,12 +89,14 @@ function App() {
 
     return (
         <MantineProvider theme={globalTheme}>
-            <AppShell header={{ height: 60 }}>
+            <AppShell header={{ height: 50 }} footer={{ height: 100, offset: stickFooter}}>
                 <AppShell.Header>
-                    <Title order={1}>Mode Trainer</Title>
+                    <Group className={classes.titleWrapper}>
+                        <Text span className={classes.titleText}>Mode Trainer | 调式音阶练习器</Text>
+                    </Group>
                 </AppShell.Header>
                 <AppShell.Main>
-                    <Stack align="center" justify="flex-start" h="100%">
+                    <Stack ref={mainSize.ref} align="center" justify="flex-start" className={classes.mainStack} gap='md'>
                         <QuestionDisplay keySignature={keySignature} scaleId={scaleId}/>
                         <Score notes={notes} correct={correct}/>
                         <Keyboard addNote={addNote} disabled={complete}/>
@@ -103,10 +115,14 @@ function App() {
                         </Drawer>
                     </Stack>
                 </AppShell.Main>
-                <AppShell.Footer>
-                    <Container>
-                        <Text>Developed by thy646742</Text>
-                    </Container>
+                <AppShell.Footer className={stickFooter ? '' : classes.footerWrapperRelative}>
+                    <Group className={classes.footer}>
+                        <Text className={classes.footerText}>
+                            Mode Trainer | 调式音阶练习器<br/>
+                            Developed by thy646742<br/>
+                            Made with Mantine
+                        </Text>
+                    </Group>
                 </AppShell.Footer>
             </AppShell>
         </MantineProvider>

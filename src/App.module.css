@@ -1,0 +1,28 @@
+.titleWrapper {
+    height: 100%;
+    margin-left: 10px;
+}
+
+.titleText {
+    font-size: var(--mantine-font-size-xl);
+    font-weight: 700;
+}
+
+.mainStack {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    height: 100%;
+}
+
+.footerWrapperRelative {
+    position: relative;
+}
+
+.footer {
+    height: 100%;
+    padding-left: 40px;
+}
+
+.footerText {
+    font-size: var(--mantine-font-size-sm);
+}
