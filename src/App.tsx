@@ -31,6 +31,7 @@ function App() {
     const [ config, setConfig ] = useState<Config>(defaultConfig);
     const [ currentConfig, setCurrentConfig ] = useState<Config>(defaultConfig);
     const [ stickFooter, setStickFooter ] = useState<boolean>(true);
+    const [ timeout, setTimeout ] = useState<boolean>(false);
 
     const scaleNotes = useMemo(() => getScaleNotes(keySignature, scaleId), [keySignature, scaleId]);
 
@@ -63,13 +64,17 @@ function App() {
         });
         const check = note.pitch == scaleNotes[noteIndex].pitch && note.accidental == scaleNotes[noteIndex]. accidental;
         setCorrect(check);
-        setComplete(check && noteIndex == 6);
+        if(check && noteIndex == 6){
+            setComplete(true);
+            setTimeout(true);
+        }
     };
 
     const skip = () => {
         setNotes([...scaleNotes]);
         setCorrect(true);
         setComplete(true);
+        setTimeout(true);
     };
 
     const newQuestion = () => {
@@ -79,11 +84,13 @@ function App() {
         setComplete(false);
         setKeySignature(keySignatures[Math.floor(Math.random() * 15)]);
         setScaleId(Math.floor(Math.random() * 7));
+        setTimeout(false);
     };
 
     const applyConfig = () => {
         setConfig(currentConfig);
         setConfigOpen.close();
+        setTimeout(false);
     };
     
     const discardConfig = () =>{
@@ -102,9 +109,16 @@ function App() {
                 </AppShell.Header>
                 <AppShell.Main>
                     <Stack ref={mainSize.ref} align='center' justify='flex-start' className={classes.mainStack} gap='md'>
-                        <QuestionDisplay keySignature={keySignature} scaleId={scaleId}/>
+                        <QuestionDisplay
+                            keySignature={keySignature}
+                            scaleId={scaleId}
+                            timeMode={config.timeMode}
+                            timeLimit={config.timeLimit}
+                            timeout={timeout}
+                            setTimeout={setTimeout}
+                        />
                         <Score notes={notes} correct={correct}/>
-                        <Keyboard addNote={addNote} disabled={complete}/>
+                        <Keyboard addNote={addNote} disabled={complete || timeout}/>
                         <Group>
                             <Button onClick={skip} disabled={complete} variant='light'>{t('main.showanswer')}</Button>
                             <Button onClick={newQuestion} disabled={!complete}>{t('main.nextquestion')}</Button>

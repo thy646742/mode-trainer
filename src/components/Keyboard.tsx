@@ -40,7 +40,7 @@ function Keyboard({ addNote, disabled }: KeybaordProps) {
                             variant='outline'
                             size='lg'
                             classNames = {{ inner: classes.accidental }}
-                            disabled={pitch == '' ? true : false}
+                            disabled={pitch == '' || disabled == true ? true : false}
                             onClick={() => {
                                 addNote({
                                     pitch: pitch as Pitch,

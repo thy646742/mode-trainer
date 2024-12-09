@@ -16,5 +16,5 @@ type Scale = 'Ionian' | 'Dorian' | 'Phrygian' | 'Lydian' | 'Mixolydian' | 'Aeoli
 
 type Config = {
     timeMode: string //'untimed' | 'timed' | 'stopwatch';
-    timeLimit?: number;
+    timeLimit: number;
 }

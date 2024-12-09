@@ -10,5 +10,7 @@
     "config.timemode.stopwatch": "Stopwatch",
     "config.timelimit.label": "Time Limit",
     "config.save": "Save",
-    "config.discard": "Discard"
+    "config.discard": "Discard",
+    "question.timeremaining": "Time Remaining",
+    "question.timeused": "Time Used"
 }
