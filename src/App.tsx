@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDisclosure, useElementSize, useViewportSize } from '@mantine/hooks';
 import { createTheme, MantineProvider, AppShell, Text, Stack, Button, Group, Drawer } from '@mantine/core';
 import Score from './components/Score';
@@ -33,7 +33,7 @@ function App() {
     const [ stickFooter, setStickFooter ] = useState<boolean>(true);
     const [ timeout, setTimeout ] = useState<boolean>(false);
 
-    const scaleNotes = useMemo(() => getScaleNotes(keySignature, scaleId), [keySignature, scaleId]);
+    const scaleNotes = getScaleNotes(keySignature, scaleId);
 
     const mainSize = useElementSize();
     const viewportSize = useViewportSize();
