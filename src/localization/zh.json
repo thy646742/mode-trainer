@@ -1,0 +1,14 @@
+{
+    "debug": "中文",
+    "main.showanswer": "显示答案",
+    "main.nextquestion": "下一题",
+    "main.configure": "配置...",
+    "config.title": "配置",
+    "config.timemode.label": "计时模式",
+    "config.timemode.untimed": "不计时",
+    "config.timemode.timed": "计时",
+    "config.timemode.stopwatch": "秒表",
+    "config.timelimit.label": "时间限制",
+    "config.save": "保存",
+    "config.discard": "取消"
+}

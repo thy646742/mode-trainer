@@ -5,6 +5,7 @@ import Score from './components/Score';
 import Keyboard from './components/Keyboard';
 import QuestionDisplay from './components/QuestionDisplay';
 import Configuration from './components/Configuration';
+import { useTranslation } from 'react-i18next';
 import { getScaleNotes } from './utils/getScaleNotes';
 import '@mantine/core/styles.css';
 import classes from '/src/App.module.css';
@@ -34,6 +35,8 @@ function App() {
 
     const mainSize = useElementSize();
     const viewportSize = useViewportSize();
+
+    const { t } = useTranslation();
 
     useEffect(() => {
         setStickFooter(mainSize.height + 150 <= viewportSize.height);
@@ -96,16 +99,16 @@ function App() {
                     </Group>
                 </AppShell.Header>
                 <AppShell.Main>
-                    <Stack ref={mainSize.ref} align="center" justify="flex-start" className={classes.mainStack} gap='md'>
+                    <Stack ref={mainSize.ref} align='center' justify='flex-start' className={classes.mainStack} gap='md'>
                         <QuestionDisplay keySignature={keySignature} scaleId={scaleId}/>
                         <Score notes={notes} correct={correct}/>
                         <Keyboard addNote={addNote} disabled={complete}/>
                         <Group>
-                            <Button onClick={skip} disabled={complete} variant='light'>Show Answer</Button>
-                            <Button onClick={newQuestion} disabled={!complete}>New Question</Button>
-                            <Button onClick={setConfigOpen.open}>Configure...</Button>
+                            <Button onClick={skip} disabled={complete} variant='light'>{t('main.showanswer')}</Button>
+                            <Button onClick={newQuestion} disabled={!complete}>{t('main.nextquestion')}</Button>
+                            <Button onClick={setConfigOpen.open}>{t('main.configure')}</Button>
                         </Group>
-                        <Drawer position='right' opened={configOpen} onClose={discardConfig} title="Configuration">
+                        <Drawer position='right' opened={configOpen} onClose={discardConfig} title={t('config.title')}>
                             <Configuration
                                 config={currentConfig}
                                 setConfig={setCurrentConfig}

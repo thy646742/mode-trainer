@@ -1,0 +1,14 @@
+{
+    "debug": "English",
+    "main.showanswer": "Show Answer",
+    "main.nextquestion": "Next Question",
+    "main.configure": "Configure...",
+    "config.title": "Configuration",
+    "config.timemode.label": "Time Mode",
+    "config.timemode.untimed": "Untimed",
+    "config.timemode.timed": "Timed",
+    "config.timemode.stopwatch": "Stopwatch",
+    "config.timelimit.label": "Time Limit",
+    "config.save": "Save",
+    "config.discard": "Discard"
+}
