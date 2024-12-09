@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDisclosure, useElementSize, useViewportSize } from '@mantine/hooks';
-import { createTheme, MantineProvider, AppShell, Text, Stack, Button, Group, Drawer } from '@mantine/core';
+import { createTheme, MantineProvider, AppShell, Text, Stack, Button, Group, Drawer, Anchor } from '@mantine/core';
 import Score from './components/Score';
 import Keyboard from './components/Keyboard';
 import QuestionDisplay from './components/QuestionDisplay';
@@ -139,7 +139,9 @@ function App() {
                         <Text className={classes.footerText}>
                             Mode Trainer | 调式音阶练习器<br/>
                             Developed by thy646742<br/>
-                            Made with Mantine
+                            <Anchor className={classes.footerText} href='https://github.com/thy646742/mode-trainer/'>
+                                Github Repository
+                            </Anchor>
                         </Text>
                     </Group>
                 </AppShell.Footer>
