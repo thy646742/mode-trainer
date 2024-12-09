@@ -5,6 +5,7 @@ import Score from './components/Score';
 import Keyboard from './components/Keyboard';
 import QuestionDisplay from './components/QuestionDisplay';
 import Configuration from './components/Configuration';
+import LanguageSwitch from './components/LanguageSwitch';
 import { useTranslation } from 'react-i18next';
 import { getScaleNotes } from './utils/getScaleNotes';
 import '@mantine/core/styles.css';
@@ -94,8 +95,9 @@ function App() {
         <MantineProvider theme={globalTheme}>
             <AppShell header={{ height: 50 }} footer={{ height: 100, offset: stickFooter}}>
                 <AppShell.Header>
-                    <Group className={classes.titleWrapper}>
+                    <Group justify='space-between' className={classes.titleWrapper}>
                         <Text span className={classes.titleText}>Mode Trainer | 调式音阶练习器</Text>
+                        <LanguageSwitch/>
                     </Group>
                 </AppShell.Header>
                 <AppShell.Main>
