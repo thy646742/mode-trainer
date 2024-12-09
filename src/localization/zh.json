@@ -12,5 +12,5 @@
     "config.save": "保存",
     "config.discard": "取消",
     "question.timeremaining": "剩余时间",
-    "question.timeused": "经过时间"
+    "question.timeused": "已用时间"
 }
