@@ -1,3 +1,4 @@
+import '@mantine/core/styles.css';
 import { useState, useEffect } from 'react';
 import { useDisclosure, useElementSize, useViewportSize } from '@mantine/hooks';
 import { createTheme, MantineProvider, AppShell, Text, Stack, Button, Group, Drawer, Anchor } from '@mantine/core';
@@ -8,7 +9,6 @@ import Configuration from './components/Configuration';
 import LanguageSwitch from './components/LanguageSwitch';
 import { useTranslation } from 'react-i18next';
 import { getScaleNotes } from './utils/getScaleNotes';
-import '@mantine/core/styles.css';
 import classes from '/src/App.module.css';
 
 const globalTheme = createTheme({

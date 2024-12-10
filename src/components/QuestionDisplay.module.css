@@ -3,24 +3,24 @@
 }
 
 .question {
-    font-size: 2rem !important
+    font-size: 2rem
 }
 
 .accidental {
     font-family: "Noto Music", sans-serif;
     font-weight: 400;
     font-style: normal;
-    font-size: 2.5rem !important;
+    font-size: 2.5rem;
     position: relative;
     top: -0.1rem;
 }
 
 .timeTitle {
     text-align: center;
-    font-size: 1.5rem !important;
+    font-size: 1.5rem;
 }
 
 .time {
     text-align: center;
-    font-size: 2.5rem !important;
+    font-size: 2.5rem;
 }
