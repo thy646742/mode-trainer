@@ -17,6 +17,8 @@ A trainer application that helps you practice mode scales.
 
 `npm run build`生成一份静态网站，用任意http服务器部署
 
+如果不是部署在url根目录下，在`vite.config.js`中添加`base`配置项，详见[Vite文档](https://vite.dev/config/shared-options.html#base)
+
 ## 技术
 
 [Vite](http://vite.dev) + [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/): 前端框架
