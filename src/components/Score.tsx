@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Accidental, Formatter, Renderer, Stave, StaveNote, SVGContext, Voice } from 'vexflow';
+import { Accidental, Formatter, Renderer, Stave, StaveNote, SVGContext, Voice } from 'vexflow/bravura';
 
 type ScoreProps = {
     notes: Note[],
